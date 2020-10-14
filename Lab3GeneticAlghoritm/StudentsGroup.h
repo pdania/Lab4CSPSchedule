@@ -7,21 +7,8 @@ using namespace std;
 
 class CourseClass;
 
-class StudentsGroup
-{
-
-private:
-
-	int _id;
-
-	string _name;
-
-	int _numberOfStudents;
-
-	list<CourseClass*> _courseClasses;
-
+class StudentsGroup {
 public:
-
 	StudentsGroup(int id, const string& name, int numberOfStudents);
 
 	void AddClass(CourseClass* courseClass);
@@ -36,4 +23,9 @@ public:
 
 	inline bool operator ==(const StudentsGroup& rhs) const { return _id == rhs._id; }
 
+private:
+	int _id;
+	string _name;
+	int _numberOfStudents;
+	list<CourseClass*> _courseClasses;
 };

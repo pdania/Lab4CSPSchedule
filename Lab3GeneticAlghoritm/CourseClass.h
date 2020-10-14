@@ -7,25 +7,8 @@
 
 using namespace std;
 
-class CourseClass
-{
-
-private:
-
-	Professor* _professor;
-
-	Course* _course;
-
-	list<StudentsGroup*> _groups;
-
-	int _numberOfSeats;
-
-	bool _requiresLab;
-
-	int _duration;
-
+class CourseClass {
 public:
-
 	CourseClass(Professor* professor, Course* course, const list<StudentsGroup*>& groups,
 		bool requiresLab, int duration);
 
@@ -47,4 +30,11 @@ public:
 
 	inline int GetDuration() const { return _duration; }
 
+private:
+	Professor* _professor;
+	Course* _course;
+	list<StudentsGroup*> _groups;
+	int _numberOfSeats;
+	bool _requiresLab;
+	int _duration;
 };

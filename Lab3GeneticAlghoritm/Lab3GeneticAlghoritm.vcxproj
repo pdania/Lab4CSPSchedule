@@ -142,7 +142,7 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="CourseClass.cpp" />
-    <ClCompile Include="Lab3GeneticAlghoritm.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Professor.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="StudentGroup.cpp" />
