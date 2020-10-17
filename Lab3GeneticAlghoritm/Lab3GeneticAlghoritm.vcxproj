@@ -142,18 +142,25 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="CourseClass.cpp" />
+    <ClCompile Include="InitializeAlghoritm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Professor.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="StudentGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="CourseClass.h" />
+    <ClInclude Include="InitializeAlghoritm.h" />
     <ClInclude Include="Professor.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="Schedule.h" />
     <ClInclude Include="StudentsGroup.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

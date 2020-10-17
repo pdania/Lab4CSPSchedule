@@ -1,5 +1,7 @@
-#include <iostream>
+#include"InitializeAlghoritm.h"
+
 
 int main() {
-    std::cout << "Hello World!\n";
+	ShowStartingWindwow();
+	return 0;
 }
