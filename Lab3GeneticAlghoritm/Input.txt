@@ -104,6 +104,31 @@
 	name = System Administration and Maintenance I
 #end
 
+#practice
+	id = 1
+	name = Introduction to Programming
+#end
+
+#practice
+	id = 2
+	name = Introduction to Computer Architecture
+#end
+
+#practice
+	id = 3
+	name = Business Applications
+#end
+
+#practice
+	id = 4
+	name = English
+#end
+
+#practice
+	id = 5
+	name = Discrete Mathematic I
+#end
+
 #room
 	name = R3
 	lab = true

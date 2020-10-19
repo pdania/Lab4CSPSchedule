@@ -5,7 +5,7 @@ bool IsDigit(string str) {
 		find_if(str.begin(), str.end(), [](char c) { return !isdigit(c); }) == str.end();
 }
 
-void ShowStartingWindwow() {
+void ShowStartingWindwow(Schedule* schedule) {
 	size_t crossoserPoints = 0;
 	SetCursorPosition(2, 0);
 	cout << "Building schedule with Genetic algorithm  (Osadchuk, Parkhomenko, 2020)";
@@ -84,7 +84,7 @@ void ShowStartingWindwow() {
 		SetCursorPosition(0, 5, Color::Cyan);
 		cout << "Choose number between 0 and 100: ";
 	}
-
+	schedule = Schedule()
 	SetCursorPosition(0, 6, Color::White);
 	cout << "Press any button to start!";
 

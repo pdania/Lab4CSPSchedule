@@ -2,6 +2,7 @@
 #include<vector>
 #include<unordered_map>
 #include"CourseClass.h"
+#include"Config.h"
 
 #define DAY_HOURS = 12;
 #define DAYS = 5;

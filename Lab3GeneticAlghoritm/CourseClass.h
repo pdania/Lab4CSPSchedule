@@ -2,6 +2,7 @@
 #include "Professor.h"
 #include "StudentsGroup.h"
 #include "Course.h"
+#include"Practice.h"
 
 #pragma once
 
@@ -33,6 +34,7 @@ public:
 private:
 	Professor* _professor;
 	Course* _course;
+	Practice* _practice;
 	list<StudentsGroup*> _groups;
 	int _numberOfSeats;
 	bool _requiresLab;

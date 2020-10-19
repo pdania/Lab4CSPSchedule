@@ -1,4 +1,5 @@
 #pragma once
+#include"Schedule.h"
 #include <string>
 #include <iostream>
 #include <windows.h>
@@ -30,7 +31,7 @@ enum class Color {
 };
 
 bool IsDigit(string str);
-void ShowStartingWindwow();
+void ShowStartingWindwow(Schedule* schedule);
 void SetCursorPosition(const int x, const int y, const Color color = Color::White);
 void ClearLine(const size_t y);
 

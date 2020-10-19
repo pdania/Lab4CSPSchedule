@@ -66,6 +66,12 @@ void Config::ParseFile(char* fileName)
 			if (c)
 				_courses.insert(pair<int, Course*>(c->GetId(), c));
 		}
+		else if (line.compare("#practice") == 0)
+		{
+			Practice* c = ParsePractice(input);
+			if (c)
+				_practices.insert(pair<int, Practice*>(c->GetId(), c));
+		}
 		else if (line.compare("#room") == 0)
 		{
 			Room* r = ParseRoom(input);
@@ -159,6 +165,30 @@ Course* Config::ParseCourse(ifstream& file)
 	return id == 0 ? NULL : new Course(id, name);
 }
 
+Practice* Config::ParsePractice(ifstream& file)
+{
+	int id = 0;
+	string name;
+
+	while (!file.eof())
+	{
+		string key, value;
+
+		// get key - value pair
+		if (!GetConfigBlockLine(file, key, value))
+			break;
+
+		// get value of key
+		if (key.compare("id") == 0)
+			id = atoi(value.c_str());
+		else if (key.compare("name") == 0)
+			name = value;
+	}
+
+	// make object and return pointer to it
+	return id == 0 ? NULL : new Practice(id, name);
+}
+
 Room* Config::ParseRoom(ifstream& file)
 {
 	int number = 0;
@@ -188,7 +218,7 @@ Room* Config::ParseRoom(ifstream& file)
 
 CourseClass* Config::ParseCourseClass(ifstream& file)
 {
-	int pid = 0, cid = 0, dur = 1;
+	int pid = 0, cid = 0,prid = 0, dur = 1;
 	bool lab = false;
 
 	list<StudentsGroup*> groups;
@@ -206,6 +236,8 @@ CourseClass* Config::ParseCourseClass(ifstream& file)
 			pid = atoi(value.c_str());
 		else if (key.compare("course") == 0)
 			cid = atoi(value.c_str());
+		else if (key.compare("practice") == 0)
+			prid = atoi(value.c_str());
 		else if (key.compare("lab") == 0)
 			lab = value.compare("true") == 0;
 		else if (key.compare("duration") == 0)

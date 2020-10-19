@@ -13,6 +13,7 @@ class StudentsGroup;
 class Course;
 class Room;
 class CourseClass;
+class Practice;
 
 class Config {
 public:
@@ -66,6 +67,7 @@ private:
 	unordered_map<int, Professor*> _professors;
 	unordered_map<int, StudentsGroup*> _studentGroups;
 	unordered_map<int, Course*> _courses;
+	unordered_map<int, Practice*> _practices;
 	unordered_map<int, Room*> _rooms;
 	list<CourseClass*> _courseClasses;
 	bool _isEmpty;
@@ -74,6 +76,7 @@ private:
 	Professor* ParseProfessor(ifstream& file);
 	StudentsGroup* ParseStudentsGroup(ifstream& file);
 	Course* ParseCourse(ifstream& file);
+	Practice* ParsePractice(ifstream& file);
 	Room* ParseRoom(ifstream& file);
 	CourseClass* ParseCourseClass(ifstream& file);
 
