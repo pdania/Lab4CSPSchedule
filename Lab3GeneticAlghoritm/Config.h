@@ -34,6 +34,11 @@ public:
 		return it != _professors.end() ? (*it).second : NULL;
 	}
 
+	inline Practice* GetPracticeById(int id) {
+		unordered_map<int, Practice*>::iterator it = _practices.find(id);
+		return it != _practices.end() ? (*it).second : NULL;
+	}
+
 	inline int GetNumberOfProfessors() const { return (int)_professors.size(); }
 
 	inline StudentsGroup* GetStudentsGroupById(int id) {

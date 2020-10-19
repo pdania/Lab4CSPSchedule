@@ -253,14 +253,23 @@ CourseClass* Config::ParseCourseClass(ifstream& file)
 	// get professor who teaches class and course to which this class belongs
 	Professor* p = GetProfessorById(pid);
 	Course* c = GetCourseById(cid);
+	Practice* pr = GetPracticeById(prid);
 
 	// does professor and class exists
 	if (!c || !p)
 		return NULL;
 
 	// make object and return pointer to it
-	CourseClass* cc = new CourseClass(p, c, groups, lab, dur);
-	return cc;
+	if (!pr) {
+		CourseClass* cc = new CourseClass(p, c, pr, groups, lab, dur);
+		return cc;
+	}
+	else 
+	{
+		CourseClass* cc = new CourseClass(p, c, groups, lab, dur);
+		return cc;
+	}
+	
 }
 
 bool Config::GetConfigBlockLine(ifstream& file, string& key, string& value)

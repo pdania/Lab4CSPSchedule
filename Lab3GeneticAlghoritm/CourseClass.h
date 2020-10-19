@@ -12,6 +12,8 @@ class CourseClass {
 public:
 	CourseClass(Professor* professor, Course* course, const list<StudentsGroup*>& groups,
 		bool requiresLab, int duration);
+	CourseClass(Professor* professor, Course* course, Practice* practice, const list<StudentsGroup*>& groups,
+		bool requiresLab, int duration);
 
 	~CourseClass();
 

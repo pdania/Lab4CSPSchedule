@@ -18,6 +18,25 @@ CourseClass::CourseClass(Professor* professor, Course* course, const list<Studen
 	}
 }
 
+CourseClass::CourseClass(Professor* professor, Course* course, Practice* practice, const list<StudentsGroup*>& groups,
+	bool requiresLab, int duration) :
+	_professor(professor),
+	_course(course),
+	_practice(practice),
+	_numberOfSeats(0),
+	_requiresLab(requiresLab),
+	_duration(duration)
+{
+	_professor->AddCourseClass(this);
+
+	for (list<StudentsGroup*>::const_iterator it = groups.begin(); it != groups.end(); it++)
+	{
+		(*it)->AddClass(this);
+		_groups.push_back(*it);
+		_numberOfSeats += (*it)->GetNumberOfStudents();
+	}
+}
+
 CourseClass::~CourseClass() { }
 
 bool CourseClass::GroupsOverlap(const CourseClass& c) const
