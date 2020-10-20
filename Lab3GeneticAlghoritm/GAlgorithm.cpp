@@ -14,11 +14,20 @@ _removedPairs(0){
 
 
 void GAlgorithm::ProcessAlgorithm() {
-	Cross();
-	Mutate();
-
+	while (CheckPairs) {
+		AddPairs();
+		Cross();
+		Mutate();
+	}
 }
 
+void GAlgorithm::AddPairs() {
+	for (int i = 0; i < _removedPairs; ++i) {
+		_population.push_back(GeneratePair());
+		cout << "New pair added to population" << endl;
+	}
+	_removedPairs = 0;
+}
 
 void GAlgorithm::Init() {
 	for (int i = 0; i < 8; ++i) {
@@ -138,10 +147,25 @@ bool GAlgorithm::CheckPairs() {
 		int course = stoi(pair.substr(4, 2));
 		int classroom = stoi(pair.substr(2, 2));
 		int group = stoi(pair.substr(9, 2));
-		Course* courseObj = _config.GetCourseById(course);
-		if(courseObj.IsRequiresLab() != (_config.GetRoomById(classroom)).IsLab())
+		if (_config.GetCourseById(course)->IsRequiresLab() != _config.GetRoomById(classroom)->IsLab()) {
+			_population.erase(_population.begin() + i);
+			cout << "Pair number "<< i <<" removed from population" << endl;
+			_removedPairs++;
+			continue;
+		}
+		if (_config.GetStudentsGroupById(group)->GetNumberOfStudents() > _config.GetRoomById(classroom)->GetNumberOfSeats()) {
+			_population.erase(_population.begin() + i);
+			cout << "Pair number " << i << " removed from population" << endl;
+			_removedPairs++;
+			continue;
+		}
 	}
-
+	/* TODO
+	* Add check between pairs (overlap or not)
+	*/
+	if (_removedPairs)
+		return true;
+	return false;
 }
 
 string GAlgorithm::GeneratePair() {

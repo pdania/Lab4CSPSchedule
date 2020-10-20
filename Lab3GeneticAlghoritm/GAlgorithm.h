@@ -1,9 +1,13 @@
 #pragma once
 
 #include "Config.h"
+#include "Course.h"
+#include "Room.h"
+#include "StudentsGroup.h"
 #include <vector>
 #include <string>
 #include <iomanip>
+#include<iostream>
 
 using namespace std;
 
@@ -34,6 +38,8 @@ public:
 	void Mutate();
 
 	bool CheckPairs();
+
+	void AddPairs();
 
 	void ProcessAlgorithm();
 
