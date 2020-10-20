@@ -5,7 +5,7 @@ _name(name) { }
 
 Professor::~Professor(){}
 
-void Professor::AddCourseClass(CourseClass* courseClass)
-{
-	_courseClasses.push_back(courseClass);
-}
+//void Professor::AddCourseClass(CourseClass* courseClass)
+//{
+//	_courseClasses.push_back(courseClass);
+//}

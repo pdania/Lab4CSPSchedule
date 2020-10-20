@@ -22,7 +22,7 @@ public:
 	};
 
 public:
-	GAlgorithm(Config& config);
+	GAlgorithm(Config& config, size_t _crossoverProbability, size_t _mutationProbability);
 
 	void Init();
 
@@ -33,6 +33,9 @@ public:
 private:
 	Config& _config;
 	std::vector<std::string> _population;
+
+	size_t _crossoverProbability;
+	size_t _mutationProbability;
 
 	string GeneratePair();
 };

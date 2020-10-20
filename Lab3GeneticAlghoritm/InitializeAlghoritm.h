@@ -31,7 +31,7 @@ enum class Color {
 };
 
 bool IsDigit(string str);
-void ShowStartingWindwow(Schedule* schedule);
+void ShowStartingWindwow();
 void SetCursorPosition(const int x, const int y, const Color color = Color::White);
 void ClearLine(const size_t y);
 

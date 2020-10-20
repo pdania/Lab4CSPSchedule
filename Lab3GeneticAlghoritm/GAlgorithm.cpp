@@ -8,7 +8,9 @@
 
 using namespace std;
 
-GAlgorithm::GAlgorithm(Config& config) :_config(config) {
+GAlgorithm::GAlgorithm(Config& config, size_t crossoverProbability, size_t mutationProbability) :_config(config),
+_crossoverProbability(crossoverProbability),
+_mutationProbability(mutationProbability) {
 }
 
 void GAlgorithm::Init() {
@@ -20,6 +22,8 @@ void GAlgorithm::Init() {
 void GAlgorithm::Cross() {
 	srand((unsigned)time(NULL));
 
+	if (rand() % 100 > _crossoverProbability)
+		return;
 	set<string*> used_parents;
 	for (int i = 0; i < _population.size() / 2 + 1; ++i) {
 		string& first_parent = _population[rand() % _population.size()];
@@ -39,6 +43,9 @@ void GAlgorithm::Cross() {
 
 void GAlgorithm::Mutate() {
 	srand((unsigned)time(NULL));
+
+	if (rand() % 100 > _mutationProbability)
+		return;
 
 	for (int i = 0; i < _population.size() / 2; ++i) {
 		string& person_for_mutation = _population[rand() % _population.size()];

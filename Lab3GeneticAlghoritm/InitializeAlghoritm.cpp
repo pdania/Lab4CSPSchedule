@@ -5,50 +5,13 @@ bool IsDigit(string str) {
 		find_if(str.begin(), str.end(), [](char c) { return !isdigit(c); }) == str.end();
 }
 
-void ShowStartingWindwow(Schedule* schedule) {
+void ShowStartingWindwow() {
 	size_t crossoserPoints = 0;
 	SetCursorPosition(2, 0);
 	cout << "Building schedule with Genetic algorithm  (Osadchuk, Parkhomenko, 2020)";
 
-	SetCursorPosition(0, 2, Color::White);
-	cout << "Enter number of crossover points (0-??): ";
-
-	while (true) {
-		string crossover_str;
-		cin >> crossover_str;
-
-		if (IsDigit(crossover_str)) {
-			crossoserPoints = atoi(crossover_str.c_str());
-			if (crossoserPoints >= 0 && true) {
-				break;
-			}
-		}
-
-		ClearLine(2);
-		SetCursorPosition(0, 2, Color::Cyan);
-		cout << "Choose number between 0 and ??: ";
-	}
-	size_t mutationSize = 0;
-	SetCursorPosition(0, 3, Color::White);
-	cout << "Enter mutation size (0-??): ";
-	while (true) {
-		string mutation;
-		cin >> mutation;
-
-		if (IsDigit(mutation)) {
-			mutationSize = atoi(mutation.c_str());
-			if (mutationSize >= 0 && true) {
-				break;
-			}
-		}
-
-		ClearLine(3);
-		SetCursorPosition(0, 3, Color::Cyan);
-		cout << "Choose number between 0 and ??: ";
-	}
-
 	size_t crossoverProbability = 0;
-	SetCursorPosition(0, 4, Color::White);
+	SetCursorPosition(0, 3, Color::White);
 	cout << "Enter crossover probability (0-100): ";
 	while (true) {
 		string crossProbability;
@@ -61,13 +24,13 @@ void ShowStartingWindwow(Schedule* schedule) {
 			}
 		}
 
-		ClearLine(4);
-		SetCursorPosition(0, 4, Color::Cyan);
+		ClearLine(3);
+		SetCursorPosition(0, 3, Color::Cyan);
 		cout << "Choose number between 0 and 100: ";
 	}
 
 	size_t mutationProbability = 0;
-	SetCursorPosition(0, 5, Color::White);
+	SetCursorPosition(0, 4, Color::White);
 	cout << "Enter mutation probability (0-100): ";
 	while (true) {
 		string mutProbability;
@@ -80,12 +43,11 @@ void ShowStartingWindwow(Schedule* schedule) {
 			}
 		}
 
-		ClearLine(5);
-		SetCursorPosition(0, 5, Color::Cyan);
+		ClearLine(4);
+		SetCursorPosition(0, 4, Color::Cyan);
 		cout << "Choose number between 0 and 100: ";
 	}
-	schedule = Schedule()
-	SetCursorPosition(0, 6, Color::White);
+	SetCursorPosition(0, 5, Color::White);
 	cout << "Press any button to start!";
 
 	system("pause >> NUL");

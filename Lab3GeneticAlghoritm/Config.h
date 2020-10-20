@@ -34,10 +34,10 @@ public:
 		return it != _professors.end() ? (*it).second : NULL;
 	}
 
-	inline Practice* GetPracticeById(int id) {
+	/*inline Practice* GetPracticeById(int id) {
 		unordered_map<int, Practice*>::iterator it = _practices.find(id);
 		return it != _practices.end() ? (*it).second : NULL;
-	}
+	}*/
 
 	inline int GetNumberOfProfessors() const { return (int)_professors.size(); }
 
@@ -62,9 +62,9 @@ public:
 
 	inline int GetNumberOfRooms() const { return (int)_rooms.size(); }
 
-	inline const list<CourseClass*>& GetCourseClasses() const { return _courseClasses; }
+	//inline const list<CourseClass*>& GetCourseClasses() const { return _courseClasses; }
 
-	inline int GetNumberOfCourseClasses() const { return (int)_courseClasses.size(); }
+	//inline int GetNumberOfCourseClasses() const { return (int)_courseClasses.size(); }
 
 	inline bool IsEmpty() const { return _isEmpty; }
 
@@ -72,18 +72,18 @@ private:
 	unordered_map<int, Professor*> _professors;
 	unordered_map<int, StudentsGroup*> _studentGroups;
 	unordered_map<int, Course*> _courses;
-	unordered_map<int, Practice*> _practices;
+	//unordered_map<int, Practice*> _practices;
 	unordered_map<int, Room*> _rooms;
-	list<CourseClass*> _courseClasses;
+	//list<CourseClass*> _courseClasses;
 	bool _isEmpty;
 
 private:
 	Professor* ParseProfessor(ifstream& file);
 	StudentsGroup* ParseStudentsGroup(ifstream& file);
 	Course* ParseCourse(ifstream& file);
-	Practice* ParsePractice(ifstream& file);
+	//Practice* ParsePractice(ifstream& file);
 	Room* ParseRoom(ifstream& file);
-	CourseClass* ParseCourseClass(ifstream& file);
+	//CourseClass* ParseCourseClass(ifstream& file);
 
 	bool GetConfigBlockLine(ifstream& file, string& key, string& value);
 

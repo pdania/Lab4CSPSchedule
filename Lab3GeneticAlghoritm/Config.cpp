@@ -21,8 +21,8 @@ Config::~Config()
 	for (unordered_map<int, Room*>::iterator it = _rooms.begin(); it != _rooms.end(); it++)
 		delete (*it).second;
 
-	for (list<CourseClass*>::iterator it = _courseClasses.begin(); it != _courseClasses.end(); it++)
-		delete* it;
+	//for (list<CourseClass*>::iterator it = _courseClasses.begin(); it != _courseClasses.end(); it++)
+	//	delete* it;
 }
 
 void Config::ParseFile(char* fileName)
@@ -32,7 +32,7 @@ void Config::ParseFile(char* fileName)
 	_studentGroups.clear();
 	_courses.clear();
 	_rooms.clear();
-	_courseClasses.clear();
+	//_courseClasses.clear();
 
 	Room::RestartIDs();
 
@@ -66,24 +66,18 @@ void Config::ParseFile(char* fileName)
 			if (c)
 				_courses.insert(pair<int, Course*>(c->GetId(), c));
 		}
-		else if (line.compare("#practice") == 0)
-		{
-			Practice* c = ParsePractice(input);
-			if (c)
-				_practices.insert(pair<int, Practice*>(c->GetId(), c));
-		}
 		else if (line.compare("#room") == 0)
 		{
 			Room* r = ParseRoom(input);
 			if (r)
 				_rooms.insert(pair<int, Room*>(r->GetId(), r));
 		}
-		else if (line.compare("#class") == 0)
+		/*else if (line.compare("#class") == 0)
 		{
 			CourseClass* c = ParseCourseClass(input);
 			if (c)
 				_courseClasses.push_back(c);
-		}
+		}*/
 	}
 
 	input.close();
@@ -145,6 +139,7 @@ Course* Config::ParseCourse(ifstream& file)
 {
 	int id = 0;
 	string name;
+	bool lab;
 
 	while (!file.eof())
 	{
@@ -159,35 +154,37 @@ Course* Config::ParseCourse(ifstream& file)
 			id = atoi(value.c_str());
 		else if (key.compare("name") == 0)
 			name = value;
+		else if (key.compare("requiresLab") == 0)
+			lab = value.compare("true") == 0;
 	}
 
 	// make object and return pointer to it
-	return id == 0 ? NULL : new Course(id, name);
+	return id == 0 ? NULL : new Course(id, name, lab);
 }
 
-Practice* Config::ParsePractice(ifstream& file)
-{
-	int id = 0;
-	string name;
-
-	while (!file.eof())
-	{
-		string key, value;
-
-		// get key - value pair
-		if (!GetConfigBlockLine(file, key, value))
-			break;
-
-		// get value of key
-		if (key.compare("id") == 0)
-			id = atoi(value.c_str());
-		else if (key.compare("name") == 0)
-			name = value;
-	}
-
-	// make object and return pointer to it
-	return id == 0 ? NULL : new Practice(id, name);
-}
+//Practice* Config::ParsePractice(ifstream& file)
+//{
+//	int id = 0;
+//	string name;
+//
+//	while (!file.eof())
+//	{
+//		string key, value;
+//
+//		// get key - value pair
+//		if (!GetConfigBlockLine(file, key, value))
+//			break;
+//
+//		// get value of key
+//		if (key.compare("id") == 0)
+//			id = atoi(value.c_str());
+//		else if (key.compare("name") == 0)
+//			name = value;
+//	}
+//
+//	// make object and return pointer to it
+//	return id == 0 ? NULL : new Practice(id, name);
+//}
 
 Room* Config::ParseRoom(ifstream& file)
 {
@@ -216,61 +213,61 @@ Room* Config::ParseRoom(ifstream& file)
 	return number == 0 ? NULL : new Room(name, lab, number);
 }
 
-CourseClass* Config::ParseCourseClass(ifstream& file)
-{
-	int pid = 0, cid = 0,prid = 0, dur = 1;
-	bool lab = false;
-
-	list<StudentsGroup*> groups;
-
-	while (!file.eof())
-	{
-		string key, value;
-
-		// get key - value pair
-		if (!GetConfigBlockLine(file, key, value))
-			break;
-
-		// get value of key
-		if (key.compare("professor") == 0)
-			pid = atoi(value.c_str());
-		else if (key.compare("course") == 0)
-			cid = atoi(value.c_str());
-		else if (key.compare("practice") == 0)
-			prid = atoi(value.c_str());
-		else if (key.compare("lab") == 0)
-			lab = value.compare("true") == 0;
-		else if (key.compare("duration") == 0)
-			dur = atoi(value.c_str());
-		else if (key.compare("group") == 0)
-		{
-			StudentsGroup* g = GetStudentsGroupById(atoi(value.c_str()));
-			if (g)
-				groups.push_back(g);
-		}
-	}
-
-	// get professor who teaches class and course to which this class belongs
-	Professor* p = GetProfessorById(pid);
-	Course* c = GetCourseById(cid);
-	Practice* pr = GetPracticeById(prid);
-
-	// does professor and class exists
-	if (!c || !p)
-		return NULL;
-
-	// make object and return pointer to it
-	if (!pr) {
-		CourseClass* cc = new CourseClass(p, c, pr, groups, lab, dur);
-		return cc;
-	}
-	else 
-	{
-		CourseClass* cc = new CourseClass(p, c, groups, lab, dur);
-		return cc;
-	}
-	
-}
+//CourseClass* Config::ParseCourseClass(ifstream& file)
+//{
+//	int pid = 0, cid = 0,prid = 0, dur = 1;
+//	bool lab = false;
+//
+//	list<StudentsGroup*> groups;
+//
+//	while (!file.eof())
+//	{
+//		string key, value;
+//
+//		// get key - value pair
+//		if (!GetConfigBlockLine(file, key, value))
+//			break;
+//
+//		// get value of key
+//		if (key.compare("professor") == 0)
+//			pid = atoi(value.c_str());
+//		else if (key.compare("course") == 0)
+//			cid = atoi(value.c_str());
+//		else if (key.compare("practice") == 0)
+//			prid = atoi(value.c_str());
+//		else if (key.compare("lab") == 0)
+//			lab = value.compare("true") == 0;
+//		else if (key.compare("duration") == 0)
+//			dur = atoi(value.c_str());
+//		else if (key.compare("group") == 0)
+//		{
+//			StudentsGroup* g = GetStudentsGroupById(atoi(value.c_str()));
+//			if (g)
+//				groups.push_back(g);
+//		}
+//	}
+//
+//	// get professor who teaches class and course to which this class belongs
+//	Professor* p = GetProfessorById(pid);
+//	Course* c = GetCourseById(cid);
+//	//Practice* pr = GetPracticeById(prid);
+//
+//	// does professor and class exists
+//	if (!c || !p)
+//		return NULL;
+//
+//	// make object and return pointer to it
+//	if (!pr) {
+//		CourseClass* cc = new CourseClass(p, c, pr, groups, lab, dur);
+//		return cc;
+//	}
+//	else 
+//	{
+//		CourseClass* cc = new CourseClass(p, c, groups, lab, dur);
+//		return cc;
+//	}
+//	
+//}
 
 bool Config::GetConfigBlockLine(ifstream& file, string& key, string& value)
 {

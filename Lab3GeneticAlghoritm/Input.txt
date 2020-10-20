@@ -67,11 +67,13 @@
 #course
 	id = 1
 	name = Introduction to Programming
+	requiresLab = true
 #end
 
 #course
 	id = 2
 	name = Introduction to Computer Architecture
+	requiresLab = true
 #end
 
 #course
@@ -97,36 +99,12 @@
 #course
 	id = 7
 	name = Introduction to Information Technology I
+	requiresLab = true
 #end
 
 #course
 	id = 8
 	name = System Administration and Maintenance I
-#end
-
-#practice
-	id = 1
-	name = Introduction to Programming
-#end
-
-#practice
-	id = 2
-	name = Introduction to Computer Architecture
-#end
-
-#practice
-	id = 3
-	name = Business Applications
-#end
-
-#practice
-	id = 4
-	name = English
-#end
-
-#practice
-	id = 5
-	name = Discrete Mathematic I
 #end
 
 #room
@@ -140,6 +118,19 @@
 	lab = false
 	size = 60
 #end
+
+#room
+	name = R9
+	lab = true
+	size = 60
+#end
+
+#room
+	name = R1
+	lab = false
+	size = 10
+#end
+
 
 #group
 	id = 1

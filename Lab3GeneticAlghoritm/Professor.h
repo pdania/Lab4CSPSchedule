@@ -16,7 +16,7 @@ private:
 
 	string _name;
 
-	list<CourseClass*> _courseClasses;
+	//list<CourseClass*> _courseClasses;
 
 public:
 
@@ -24,13 +24,13 @@ public:
 	
 	~Professor();
 
-	void AddCourseClass(CourseClass* courseClass);
+	//void AddCourseClass(CourseClass* courseClass);
 
 	inline int GetId() const { return _id; }
 
 	inline const string& GetName() const { return _name; }
 
-	inline const list<CourseClass*>& GetCourseClasses() const { return _courseClasses; }
+	//inline const list<CourseClass*>& GetCourseClasses() const { return _courseClasses; }
 
 	inline bool operator ==(const Professor& rhs) const { return _id == rhs._id; }
 

@@ -145,7 +145,6 @@
     <ClCompile Include="GAlgorithm.cpp" />
     <ClCompile Include="InitializeAlghoritm.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Practice.cpp" />
     <ClCompile Include="Professor.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Schedule.cpp" />
@@ -157,7 +156,6 @@
     <ClInclude Include="CourseClass.h" />
     <ClInclude Include="GAlgorithm.h" />
     <ClInclude Include="InitializeAlghoritm.h" />
-    <ClInclude Include="Practice.h" />
     <ClInclude Include="Professor.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Schedule.h" />
