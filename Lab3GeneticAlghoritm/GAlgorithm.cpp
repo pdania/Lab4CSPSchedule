@@ -205,6 +205,8 @@ bool GAlgorithm::CheckPairs() {
 
 void GAlgorithm::PrintSchedule() {
 
+
+		cout << "Generated schedule:\n\n" << endl;
 		for (size_t j = 0; j < WORK_DAYS_NUMBER; j++)
 		{
 			cout << weekDays[j + 1] << ":" << endl;
