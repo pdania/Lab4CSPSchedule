@@ -168,6 +168,42 @@ bool GAlgorithm::CheckPairs() {
 	return false;
 }
 
+void GAlgorithm::PrintSchedule() {
+
+	for (size_t i = 0; i < _population.size(); i++)
+	{
+		string pair = _population.at(i);
+		for (size_t j = 0; j < WORK_DAYS_NUMBER; j++)
+		{
+			if ((j + 1) != stoi(pair.substr(0, 1)))
+				continue;
+
+			cout << weekDays[j + 1] << ":" << endl;
+
+			for (size_t k = 0; k < PAIRS_NUMBER_A_DAY; k++)
+			{
+				if ((k + 1) != stoi(pair.substr(1, 1)))
+					continue;
+				string pairType = (stoi(pair.substr(8, 1))) ? "Lecture" : "Practice";
+				string roomName = _config.GetRoomById(stoi(pair.substr(2, 2)))->GetName();
+				string courseName = _config.GetCourseById(stoi(pair.substr(4, 2)))->GetName();
+				string profName = _config.GetProfessorById(stoi(pair.substr(6, 2)))->GetName();
+				string groupName = _config.GetStudentsGroupById(stoi(pair.substr(9, 2)))->GetName();
+				cout << pairTimes[k + 1] << endl;
+				cout << "		PairType: " << pairType << endl;
+				cout << "		Professor: " << profName << endl;
+				cout << "		Course: " << courseName << endl;
+				cout << "		ClassRoom: " << roomName << endl;
+				cout << "		Group: " << courseName << endl;
+				cout << "-------------------------" <<endl;
+			}
+
+			cout << "***************************************************" << endl;
+		}
+	}
+}
+
+
 string GAlgorithm::GeneratePair() {
 	srand((unsigned)time(NULL));
 
