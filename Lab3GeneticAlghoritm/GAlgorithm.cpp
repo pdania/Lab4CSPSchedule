@@ -14,7 +14,7 @@ _removedPairs(0){
 
 
 void GAlgorithm::ProcessAlgorithm() {
-	while (CheckPairs) {
+	while (CheckPairs()) {
 		AddPairs();
 		Cross();
 		Mutate();
@@ -126,16 +126,20 @@ void GAlgorithm::Mutate() {
 			break;
 		}
 		case MutationType::AddPair:
+		{
 			_population.push_back(GeneratePair());
 			break;
-
+		}
 		case MutationType::RemovePair:
+		{
 			int index_for_remove = rand() % _population.size();
 			_population.erase(begin(_population) + index_for_remove);
 			break;
-
+		}
 		default:
+		{
 			throw out_of_range(mutation_type + " is more than enum elements count.");
+		}
 		}
 	}
 }
