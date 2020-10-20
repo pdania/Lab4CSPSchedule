@@ -79,21 +79,25 @@
 #course
 	id = 3
 	name = Business Applications
+	requiresLab = false
 #end
 
 #course
 	id = 4
 	name = English
+	requiresLab = true
 #end
 
 #course
 	id = 5
 	name = Discrete Mathematic I
+	requiresLab = false
 #end
 
 #course
 	id = 6
 	name = Linear Algebra
+	requiresLab = true
 #end
 
 #course

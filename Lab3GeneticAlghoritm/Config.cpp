@@ -139,7 +139,7 @@ Course* Config::ParseCourse(ifstream& file)
 {
 	int id = 0;
 	string name;
-	bool lab;
+	bool lab = false;
 
 	while (!file.eof())
 	{
