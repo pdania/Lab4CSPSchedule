@@ -6,12 +6,19 @@
 #include <string_view>
 #include <algorithm>
 
-using namespace std;
-
 GAlgorithm::GAlgorithm(Config& config, size_t crossoverProbability, size_t mutationProbability) :_config(config),
 _crossoverProbability(crossoverProbability),
-_mutationProbability(mutationProbability) {
+_mutationProbability(mutationProbability),
+_removedPairs(0){
 }
+
+
+void GAlgorithm::ProcessAlgorithm() {
+	Cross();
+	Mutate();
+
+}
+
 
 void GAlgorithm::Init() {
 	for (int i = 0; i < 8; ++i) {
@@ -53,22 +60,66 @@ void GAlgorithm::Mutate() {
 		switch (static_cast<MutationType>(mutation_type))
 		{
 		case MutationType::ChangeDay:
+		{
+			string pair = _population.at(i);
+			int newDay = rand() % WORK_DAYS_NUMBER;
+			pair.replace(0, 1, to_string(newDay));
 			break;
+		}
 		case MutationType::ChangePair:
+		{
+			string pair = _population.at(i);
+			int newPairTime = rand() % PAIRS_NUMBER_A_DAY;
+			pair.replace(1, 1, to_string(newPairTime));
 			break;
+		}
 		case MutationType::ChangeClassrom:
+		{
+			string pair = _population.at(i);
+			int newRoomNumber = rand() % _config.GetNumberOfRooms();
+			ostringstream out;
+			out << std::setfill('0') << std::setw(2) << newRoomNumber;
+			pair.replace(2, 2, out.str());
 			break;
+		}
 		case MutationType::ChangeCourse:
+		{
+			string pair = _population.at(i);
+			int newCourse = rand() % _config.GetNumberOfCourses();
+			ostringstream out;
+			out << std::setfill('0') << std::setw(2) << newCourse;
+			pair.replace(4, 2, out.str());
 			break;
+		}
 		case MutationType::ChangeProfessor:
+		{
+			string pair = _population.at(i);
+			int newProf = rand() % _config.GetNumberOfProfessors();
+			ostringstream out;
+			out << std::setfill('0') << std::setw(2) << newProf;
+			pair.replace(6, 2, out.str());
 			break;
+		}
 		case MutationType::ChangeLecturePractice:
+		{
+			string pair = _population.at(i);
+			int isLecture = rand() % 2;
+			pair.replace(8, 1, to_string(isLecture));
 			break;
+		}
 		case MutationType::ChangeGroup:
+		{
+			string pair = _population.at(i);
+			int newGroup = rand() % _config.GetNumberOfStudentGroups();
+			ostringstream out;
+			out << std::setfill('0') << std::setw(2) << newGroup;
+			pair.replace(9, 2, out.str());
 			break;
+		}
 		case MutationType::AddPair:
 			_population.push_back(GeneratePair());
 			break;
+
 		case MutationType::RemovePair:
 			int index_for_remove = rand() % _population.size();
 			_population.erase(begin(_population) + index_for_remove);
@@ -80,11 +131,18 @@ void GAlgorithm::Mutate() {
 	}
 }
 
+bool GAlgorithm::CheckPairs() {
+	for (size_t i = 0; i < _population.size(); i++)
+	{
+		string pair = _population.at(i);
+		int course = stoi(pair.substr(4, 2));
+		int classroom = stoi(pair.substr(2, 2));
+		int group = stoi(pair.substr(9, 2));
+		Course* courseObj = _config.GetCourseById(course);
+		if(courseObj.IsRequiresLab() != (_config.GetRoomById(classroom)).IsLab())
+	}
 
-
-
-
-
+}
 
 string GAlgorithm::GeneratePair() {
 	srand((unsigned)time(NULL));
@@ -92,12 +150,14 @@ string GAlgorithm::GeneratePair() {
 	int day_num = rand() % WORK_DAYS_NUMBER;
 	int pair_num = rand() % PAIRS_NUMBER_A_DAY;
 	int classrooom_id = rand() % _config.GetNumberOfRooms();
-	int course_id = rand() % _config.GetNumberOfRooms();
+	int course_id = rand() % _config.GetNumberOfCourses();
 	int professor_id = rand() % _config.GetNumberOfProfessors();
 	int is_lection = rand() % 2;
 	int group_id = _config.GetNumberOfStudentGroups();
 
 	ostringstream out;
-	out << day_num << pair_num << classrooom_id << course_id << professor_id << is_lection << group_id;
+	out << std::setfill('0') << std::setw(1) << day_num << std::setw(1) <<
+		pair_num << std::setw(2) << classrooom_id << std::setw(2) << course_id <<
+		std::setw(2) << professor_id << std::setw(1) << is_lection << std::setw(2) << group_id;
 	return out.str();
 }

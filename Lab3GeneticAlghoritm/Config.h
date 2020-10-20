@@ -34,6 +34,16 @@ public:
 		return it != _professors.end() ? (*it).second : NULL;
 	}
 
+	inline Course* GetCourseById(int id) {
+		unordered_map<int, Course*>::iterator it = _courses.find(id);
+		return it != _courses.end() ? (*it).second : NULL;
+	}
+
+	inline Room* GetRoomById(int id) {
+		unordered_map<int, Room*>::iterator it = _rooms.find(id);
+		return it != _rooms.end() ? (*it).second : NULL;
+	}
+
 	/*inline Practice* GetPracticeById(int id) {
 		unordered_map<int, Practice*>::iterator it = _practices.find(id);
 		return it != _practices.end() ? (*it).second : NULL;

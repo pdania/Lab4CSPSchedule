@@ -3,6 +3,9 @@
 #include "Config.h"
 #include <vector>
 #include <string>
+#include <iomanip>
+
+using namespace std;
 
 #define PAIRS_NUMBER_A_DAY 6;
 #define WORK_DAYS_NUMBER 5;
@@ -30,12 +33,18 @@ public:
 
 	void Mutate();
 
+	bool CheckPairs();
+
+	void ProcessAlgorithm();
+
 private:
 	Config& _config;
 	std::vector<std::string> _population;
 
 	size_t _crossoverProbability;
 	size_t _mutationProbability;
+	size_t _removedPairs;
 
 	string GeneratePair();
+	
 };
