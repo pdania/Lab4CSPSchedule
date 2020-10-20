@@ -27,7 +27,7 @@ public:
 
 	~Config();
 
-	void ParseFile(char* fileName);
+	void ParseFile(const char* fileName);
 
 	inline Professor* GetProfessorById(int id) {
 		unordered_map<int, Professor*>::iterator it = _professors.find(id);

@@ -1,13 +1,20 @@
 #include"InitializeAlghoritm.h"
 #include"Config.h"
+#include"GAlgorithm.h"
 
+const char* File = "Input.txt";
 
 int main() {
-	Config* config = new Config();
-	char file[] = "Input.txt";
+	srand(time(0));
 
-	config->ParseFile(file);
+	Config config;
+	config.ParseFile(File);
 
-	ShowStartingWindwow();
+	size_t crossoverProbability, mutationProbability;
+	ShowStartingWindwow(crossoverProbability, mutationProbability);
+
+	GAlgorithm algo(config, crossoverProbability, mutationProbability);
+	algo.ProcessAlgorithm();
+
 	return 0;
 }
