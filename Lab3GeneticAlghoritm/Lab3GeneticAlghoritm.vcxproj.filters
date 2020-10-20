@@ -18,9 +18,6 @@
     <ClCompile Include="Professor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CourseClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Schedule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InitializeAlghoritm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,9 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Professor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CourseClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
@@ -63,9 +54,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StudentsGroup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Schedule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InitializeAlghoritm.h">
