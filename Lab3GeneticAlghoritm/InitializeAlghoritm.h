@@ -30,7 +30,7 @@ enum class Color {
 };
 
 bool IsDigit(string str);
-void ShowStartingWindwow(size_t& crossoverProbability, size_t& mutationProbability);
+void ShowStartingWindwow(size_t& crossoverProbability, size_t& mutationProbability, size_t& pairCount);
 void SetCursorPosition(const int x, const int y, const Color color = Color::White);
 void ClearLine(const size_t y);
 

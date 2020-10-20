@@ -32,7 +32,7 @@ public:
 
 
 public:
-	GAlgorithm(Config& config, size_t _crossoverProbability, size_t _mutationProbability);
+	GAlgorithm(Config& config, size_t _crossoverProbability, size_t _mutationProbability, size_t pairCount);
 
 	void Init();
 
@@ -72,6 +72,7 @@ private:
 
 	size_t _crossoverProbability;
 	size_t _mutationProbability;
+	size_t _pairCount;
 	size_t _removedPairs;
 
 	string GeneratePair();

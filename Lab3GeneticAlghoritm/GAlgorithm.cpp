@@ -6,9 +6,10 @@
 #include <string_view>
 #include <algorithm>
 
-GAlgorithm::GAlgorithm(Config& config, size_t crossoverProbability, size_t mutationProbability) :
+GAlgorithm::GAlgorithm(Config& config, size_t crossoverProbability, size_t mutationProbability, size_t pairCount) :
 	_config(config),
 	_crossoverProbability(crossoverProbability),
+	_pairCount(pairCount),
 	_mutationProbability(mutationProbability),
 	_removedPairs(0) {
 }
@@ -35,7 +36,7 @@ void GAlgorithm::AddPairs() {
 }
 
 void GAlgorithm::Init() {
-	for (int i = 0; i < 8; ++i) {
+	for (int i = 0; i < _pairCount; ++i) {
 		_population.push_back(GeneratePair());
 	}
 }
@@ -70,68 +71,61 @@ void GAlgorithm::Mutate() {
 		return;
 
 	for (int i = 0; i < _population.size() / 2; ++i) {
-		int person_number_for_mutation = rand() % _population.size();
-		cout << "Mutated " << person_number_for_mutation << " person" << endl;
+		int person_id_for_mutation = rand() % _population.size();
+		cout << "Mutated person with id "<< person_id_for_mutation << endl;
 
-		string& person_for_mutation = _population[person_number_for_mutation];
+		string& person_for_mutation = _population[person_id_for_mutation];
 		int mutation_type = rand() % 9;
 		switch (static_cast<MutationType>(mutation_type))
 		{
 		case MutationType::ChangeDay:
 		{
-			string pair = _population.at(i);
 			int newDay = rand() % WORK_DAYS_NUMBER;
-			pair.replace(0, 1, to_string(newDay));
+			person_for_mutation.replace(0, 1, to_string(newDay));
 			break;
 		}
 		case MutationType::ChangePair:
 		{
-			string pair = _population.at(i);
 			int newPairTime = rand() % PAIRS_NUMBER_A_DAY;
-			pair.replace(1, 1, to_string(newPairTime));
+			person_for_mutation.replace(1, 1, to_string(newPairTime));
 			break;
 		}
 		case MutationType::ChangeClassrom:
 		{
-			string pair = _population.at(i);
 			int newRoomNumber = rand() % _config.GetNumberOfRooms();
 			ostringstream out;
 			out << std::setfill('0') << std::setw(2) << newRoomNumber;
-			pair.replace(2, 2, out.str());
+			person_for_mutation.replace(2, 2, out.str());
 			break;
 		}
 		case MutationType::ChangeCourse:
 		{
-			string pair = _population.at(i);
 			int newCourse = rand() % _config.GetNumberOfCourses();
 			ostringstream out;
 			out << std::setfill('0') << std::setw(2) << newCourse;
-			pair.replace(4, 2, out.str());
+			person_for_mutation.replace(4, 2, out.str());
 			break;
 		}
 		case MutationType::ChangeProfessor:
 		{
-			string pair = _population.at(i);
 			int newProf = rand() % _config.GetNumberOfProfessors();
 			ostringstream out;
 			out << std::setfill('0') << std::setw(2) << newProf;
-			pair.replace(6, 2, out.str());
+			person_for_mutation.replace(6, 2, out.str());
 			break;
 		}
 		case MutationType::ChangeLecturePractice:
 		{
-			string pair = _population.at(i);
 			int isLecture = rand() % 2;
-			pair.replace(8, 1, to_string(isLecture));
+			person_for_mutation.replace(8, 1, to_string(isLecture));
 			break;
 		}
 		case MutationType::ChangeGroup:
 		{
-			string pair = _population.at(i);
 			int newGroup = rand() % _config.GetNumberOfStudentGroups();
 			ostringstream out;
 			out << std::setfill('0') << std::setw(2) << newGroup;
-			pair.replace(9, 2, out.str());
+			person_for_mutation.replace(9, 2, out.str());
 			break;
 		}
 		case MutationType::AddPair:

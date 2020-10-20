@@ -10,10 +10,10 @@ int main() {
 	Config config;
 	config.ParseFile(File);
 
-	size_t crossoverProbability, mutationProbability;
-	ShowStartingWindwow(crossoverProbability, mutationProbability);
+	size_t crossoverProbability, mutationProbability, pairCount;
+	ShowStartingWindwow(crossoverProbability, mutationProbability, pairCount);
 
-	GAlgorithm algo(config, crossoverProbability, mutationProbability);
+	GAlgorithm algo(config, crossoverProbability, mutationProbability, pairCount);
 	algo.ProcessAlgorithm();
 
 	return 0;
