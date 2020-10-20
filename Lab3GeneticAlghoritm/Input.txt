@@ -1,67 +1,67 @@
 
 #prof
 	id = 0
-	name = Alex
+	name = Vozniuk Yaroslav Ivanovich
 #end
 
 #prof
 	id = 1
-	name = Victor
+	name = Hlybovets Mykola Mykolayovych
 #end
 
 #prof
 	id = 2
-	name = Red
+	name = Gulaeva Natalia Mikhailovna
 #end
 
 #prof
 	id = 3
-	name = Philip
+	name = Protsenko Volodimir Semenovich
 #end
 
 #prof
 	id = 4
-	name = Marry
+	name = Treelips Alexander Semenovich
 #end
 
 #prof
 	id = 5
-	name = Don
+	name = Yablonsky Volodimir
 #end
 
 #prof
 	id = 6
-	name = Mark
+	name = Bratick Mikhail Vasilyevich
 #end
 
 #prof
 	id = 7
-	name = Peter
+	name = Dyachenko Sergey Nikolaevich
 #end
 
 #prof
 	id = 8
-	name = John
+	name = Kozerenko Sergey Alexandrovich
 #end
 
 #prof
 	id = 9
-	name = Ben
+	name = Hlybovets Andriy Mykolayovych
 #end
 
 #prof
 	id = 10
-	name = Mike
+	name = Franchuk Oleg Vasilyevich
 #end
 
 #prof
 	id = 11
-	name = Steve
+	name = Afonin Andrey Alexandrovich
 #end
 
 #prof
 	id = 12
-	name = Ann
+	name = Bublik Vladimir Vasilyevich
 #end
 
 #course
