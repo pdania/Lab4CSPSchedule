@@ -1,5 +1,10 @@
 
 #prof
+	id = 0
+	name = Alex
+#end
+
+#prof
 	id = 1
 	name = Victor
 #end
@@ -59,9 +64,9 @@
 	name = Ann
 #end
 
-#prof
-	id = 13
-	name = Alex
+#course
+	id = 0
+	name = System Administration and Maintenance I
 #end
 
 #course
@@ -79,32 +84,31 @@
 #course
 	id = 3
 	name = Business Applications
+	requiresLab = false
 #end
 
 #course
 	id = 4
 	name = English
+	requiresLab = true
 #end
 
 #course
 	id = 5
 	name = Discrete Mathematic I
+	requiresLab = false
 #end
 
 #course
 	id = 6
 	name = Linear Algebra
+	requiresLab = true
 #end
 
 #course
 	id = 7
 	name = Introduction to Information Technology I
 	requiresLab = true
-#end
-
-#course
-	id = 8
-	name = System Administration and Maintenance I
 #end
 
 #room
@@ -131,6 +135,11 @@
 	size = 10
 #end
 
+#group
+	id = 0
+	name = 1S1
+	size = 10
+#end
 
 #group
 	id = 1
@@ -148,10 +157,4 @@
 	id = 3
 	name = 1O3
 	size = 60
-#end
-
-#group
-	id = 4
-	name = 1S1
-	size = 10
 #end

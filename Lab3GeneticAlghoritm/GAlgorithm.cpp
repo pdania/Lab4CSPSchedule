@@ -6,15 +6,18 @@
 #include <string_view>
 #include <algorithm>
 
-GAlgorithm::GAlgorithm(Config& config, size_t crossoverProbability, size_t mutationProbability) :_config(config),
-_crossoverProbability(crossoverProbability),
-_mutationProbability(mutationProbability),
-_removedPairs(0){
+GAlgorithm::GAlgorithm(Config& config, size_t crossoverProbability, size_t mutationProbability) :
+	_config(config),
+	_crossoverProbability(crossoverProbability),
+	_mutationProbability(mutationProbability),
+	_removedPairs(0) {
 }
 
 
 void GAlgorithm::ProcessAlgorithm() {
-	while (CheckPairs) {
+	Init();
+
+	while (CheckPairs()) {
 		AddPairs();
 		Cross();
 		Mutate();
@@ -24,7 +27,7 @@ void GAlgorithm::ProcessAlgorithm() {
 void GAlgorithm::AddPairs() {
 	for (int i = 0; i < _removedPairs; ++i) {
 		_population.push_back(GeneratePair());
-		cout << "New pair added to population" << endl;
+		cout << "New Person added to population" << endl;
 	}
 	_removedPairs = 0;
 }
@@ -36,35 +39,39 @@ void GAlgorithm::Init() {
 }
 
 void GAlgorithm::Cross() {
-	srand((unsigned)time(NULL));
-
 	if (rand() % 100 > _crossoverProbability)
 		return;
-	set<string*> used_parents;
-	for (int i = 0; i < _population.size() / 2 + 1; ++i) {
-		string& first_parent = _population[rand() % _population.size()];
-		while (used_parents.count(&first_parent) > 0) {
-			first_parent = _population[rand() % _population.size()];
+	set<int> used_parent_numbers;
+	for (int i = 0; i < _population.size() / 2; ++i) {
+		int first_parent_num = rand() % _population.size();
+		while (used_parent_numbers.count(first_parent_num) > 0) {
+			first_parent_num = rand() % _population.size();
 		}
-		string& second_parent = _population[rand() % _population.size()];
-		while (used_parents.count(&second_parent) > 0) {
-			second_parent = _population[rand() % _population.size()];
+		int second_parent_num = rand() % _population.size();
+		while (used_parent_numbers.count(second_parent_num) > 0) {
+			second_parent_num = rand() % _population.size();
 		}
-		used_parents.insert(&first_parent);
-		used_parents.insert(&second_parent);
+		used_parent_numbers.insert(first_parent_num);
+		used_parent_numbers.insert(second_parent_num);
+
+		cout << "Crossed persons " << first_parent_num << " and " << second_parent_num << endl;
+
+		string& first_parent = _population[first_parent_num];
+		string& second_parent = _population[second_parent_num];
 		int div_index = rand() % min(first_parent.size(), second_parent.size());
 		swap_ranges(begin(first_parent) + div_index, end(first_parent), begin(second_parent) + div_index);
 	}
 }
 
 void GAlgorithm::Mutate() {
-	srand((unsigned)time(NULL));
-
 	if (rand() % 100 > _mutationProbability)
 		return;
 
 	for (int i = 0; i < _population.size() / 2; ++i) {
-		string& person_for_mutation = _population[rand() % _population.size()];
+		int person_number_for_mutation = rand() % _population.size();
+		cout << "Mutated " << person_number_for_mutation << " person" << endl;
+
+		string& person_for_mutation = _population[person_number_for_mutation];
 		int mutation_type = rand() % 9;
 		switch (static_cast<MutationType>(mutation_type))
 		{
@@ -126,16 +133,20 @@ void GAlgorithm::Mutate() {
 			break;
 		}
 		case MutationType::AddPair:
+		{
 			_population.push_back(GeneratePair());
 			break;
-
+		}
 		case MutationType::RemovePair:
+		{
 			int index_for_remove = rand() % _population.size();
 			_population.erase(begin(_population) + index_for_remove);
 			break;
-
+		}
 		default:
-			throw out_of_range(mutation_type + " is more than enum elements count.");
+		{
+			throw out_of_range(mutation_type + " is more than enum elements number.");
+		}
 		}
 	}
 }
@@ -147,25 +158,27 @@ bool GAlgorithm::CheckPairs() {
 		int course = stoi(pair.substr(4, 2));
 		int classroom = stoi(pair.substr(2, 2));
 		int group = stoi(pair.substr(9, 2));
-		if (_config.GetCourseById(course)->IsRequiresLab() != _config.GetRoomById(classroom)->IsLab()) {
+
+		if (_config.GetCourseById(course)->IsRequiresLab() && !(_config.GetRoomById(classroom)->IsLab())) {
 			_population.erase(_population.begin() + i);
-			cout << "Pair number "<< i <<" removed from population" << endl;
+			cout << "Person number " << i << " removed from population, because a room is not intended for laboratory works." << endl;
 			_removedPairs++;
 			continue;
 		}
+
 		if (_config.GetStudentsGroupById(group)->GetNumberOfStudents() > _config.GetRoomById(classroom)->GetNumberOfSeats()) {
 			_population.erase(_population.begin() + i);
-			cout << "Pair number " << i << " removed from population" << endl;
+			cout << "Person number " << i << " removed from population, because number of seats less than number of students." << endl;
 			_removedPairs++;
 			continue;
 		}
 	}
+
 	/* TODO
 	* Add check between pairs (overlap or not)
 	*/
-	if (_removedPairs)
-		return true;
-	return false;
+
+	return _removedPairs > 0;
 }
 
 void GAlgorithm::PrintSchedule() {
@@ -205,15 +218,13 @@ void GAlgorithm::PrintSchedule() {
 
 
 string GAlgorithm::GeneratePair() {
-	srand((unsigned)time(NULL));
-
 	int day_num = rand() % WORK_DAYS_NUMBER;
 	int pair_num = rand() % PAIRS_NUMBER_A_DAY;
 	int classrooom_id = rand() % _config.GetNumberOfRooms();
 	int course_id = rand() % _config.GetNumberOfCourses();
 	int professor_id = rand() % _config.GetNumberOfProfessors();
 	int is_lection = rand() % 2;
-	int group_id = _config.GetNumberOfStudentGroups();
+	int group_id = rand() % _config.GetNumberOfStudentGroups();
 
 	ostringstream out;
 	out << std::setfill('0') << std::setw(1) << day_num << std::setw(1) <<

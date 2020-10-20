@@ -27,7 +27,7 @@ public:
 
 	~Config();
 
-	void ParseFile(char* fileName);
+	void ParseFile(const char* fileName);
 
 	inline Professor* GetProfessorById(int id) {
 		unordered_map<int, Professor*>::iterator it = _professors.find(id);
@@ -58,17 +58,7 @@ public:
 
 	inline int GetNumberOfStudentGroups() const { return (int)_studentGroups.size(); }
 
-	inline Course* GetCourseById(int id) {
-		unordered_map<int, Course*>::iterator it = _courses.find(id);
-		return it != _courses.end() ? (*it).second : NULL;
-	}
-
 	inline int GetNumberOfCourses() const { return (int)_courses.size(); }
-
-	inline Room* GetRoomById(int id) {
-		unordered_map<int, Room*>::iterator it = _rooms.find(id);
-		return it != _rooms.end() ? (*it).second : NULL;
-	}
 
 	inline int GetNumberOfRooms() const { return (int)_rooms.size(); }
 

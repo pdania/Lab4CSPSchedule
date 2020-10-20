@@ -25,7 +25,7 @@ Config::~Config()
 	//	delete* it;
 }
 
-void Config::ParseFile(char* fileName)
+void Config::ParseFile(const char* fileName)
 {
 	// clear previously parsed objects
 	_professors.clear();
@@ -106,7 +106,7 @@ Professor* Config::ParseProfessor(ifstream& file)
 	}
 
 	// make object and return pointer to it
-	return id == 0 ? NULL : new Professor(id, name);
+	return id < 0 ? NULL : new Professor(id, name);
 }
 
 StudentsGroup* Config::ParseStudentsGroup(ifstream& file)
@@ -132,14 +132,14 @@ StudentsGroup* Config::ParseStudentsGroup(ifstream& file)
 	}
 
 	// make object and return pointer to it
-	return id == 0 ? NULL : new StudentsGroup(id, name, number);
+	return id < 0 ? NULL : new StudentsGroup(id, name, number);
 }
 
 Course* Config::ParseCourse(ifstream& file)
 {
 	int id = 0;
 	string name;
-	bool lab;
+	bool lab = false;
 
 	while (!file.eof())
 	{
@@ -159,7 +159,7 @@ Course* Config::ParseCourse(ifstream& file)
 	}
 
 	// make object and return pointer to it
-	return id == 0 ? NULL : new Course(id, name, lab);
+	return id < 0 ? NULL : new Course(id, name, lab);
 }
 
 //Practice* Config::ParsePractice(ifstream& file)
@@ -183,7 +183,7 @@ Course* Config::ParseCourse(ifstream& file)
 //	}
 //
 //	// make object and return pointer to it
-//	return id == 0 ? NULL : new Practice(id, name);
+//	return id < 0 ? NULL : new Practice(id, name);
 //}
 
 Room* Config::ParseRoom(ifstream& file)
@@ -210,7 +210,7 @@ Room* Config::ParseRoom(ifstream& file)
 	}
 
 	// make object and return pointer to it
-	return number == 0 ? NULL : new Room(name, lab, number);
+	return number < 0 ? NULL : new Room(name, lab, number);
 }
 
 //CourseClass* Config::ParseCourseClass(ifstream& file)
