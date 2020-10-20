@@ -148,31 +148,57 @@ void GAlgorithm::Mutate() {
 }
 
 bool GAlgorithm::CheckPairs() {
-	for (size_t i = 0; i < _population.size(); i++)
-	{
-		string pair = _population.at(i);
-		int course = stoi(pair.substr(4, 2));
-		int classroom = stoi(pair.substr(2, 2));
-		int group = stoi(pair.substr(9, 2));
+	vector<vector<bool>> occupied_rooms(WORK_DAYS_NUMBER, vector<bool>(PAIRS_NUMBER_A_DAY));
+	vector<vector<set<int>>> professors(WORK_DAYS_NUMBER, vector<set<int>>(PAIRS_NUMBER_A_DAY));
+	vector<vector<set<int>>> groups(WORK_DAYS_NUMBER, vector<set<int>>(PAIRS_NUMBER_A_DAY));
 
-		if (_config.GetCourseById(course)->IsRequiresLab() && !(_config.GetRoomById(classroom)->IsLab())) {
+	for (size_t i = 0; i < _population.size(); i++)	{
+		string pair = _population.at(i);
+		int day_num = stoi(pair.substr(0, 1));
+		int pair_num = stoi(pair.substr(1, 1));
+		int classroom_id = stoi(pair.substr(2, 2));
+		int course_id = stoi(pair.substr(4, 2));
+		int professor_id = stoi(pair.substr(6, 2));
+		int group_id = stoi(pair.substr(9, 2));
+
+		if (occupied_rooms[day_num][pair_num]) {
+			_population.erase(_population.begin() + i);
+			cout << "Person number " << i << " removed from population, because a room is alredy used." << endl;
+			_removedPairs++;
+			continue;
+		}
+		occupied_rooms[day_num][pair_num] = true;
+
+		if (professors[day_num][pair_num].count(professor_id) > 0) {
+			_population.erase(_population.begin() + i);
+			cout << "Person number " << i << " removed from population, because a professor is on another pair." << endl;
+			_removedPairs++;
+			continue;
+		}
+		professors[day_num][pair_num].insert(professor_id);
+
+		if (groups[day_num][pair_num].count(group_id) > 0) {
+			_population.erase(_population.begin() + i);
+			cout << "Person number " << i << " removed from population, because a group is on another pair." << endl;
+			_removedPairs++;
+			continue;
+		}
+		groups[day_num][pair_num].insert(group_id);
+
+		if (_config.GetCourseById(course_id)->IsRequiresLab() && !(_config.GetRoomById(classroom_id)->IsLab())) {
 			_population.erase(_population.begin() + i);
 			cout << "Person number " << i << " removed from population, because a room is not intended for laboratory works." << endl;
 			_removedPairs++;
 			continue;
 		}
 
-		if (_config.GetStudentsGroupById(group)->GetNumberOfStudents() > _config.GetRoomById(classroom)->GetNumberOfSeats()) {
+		if (_config.GetStudentsGroupById(group_id)->GetNumberOfStudents() > _config.GetRoomById(classroom_id)->GetNumberOfSeats()) {
 			_population.erase(_population.begin() + i);
 			cout << "Person number " << i << " removed from population, because number of seats less than number of students." << endl;
 			_removedPairs++;
 			continue;
 		}
 	}
-
-	/* TODO
-	* Add check between pairs (overlap or not)
-	*/
 
 	return _removedPairs > 0;
 }
