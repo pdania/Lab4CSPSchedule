@@ -13,15 +13,20 @@
 class CSPAlgorithm {
 public:
 
+	enum class Heuristics {
+		MRV,
+		DegreeHeuristics,
+		LCV,
+		ForwardChecking,
+		ConstraintPropagation,
+		BestSolution
+	};
+
 public:
 
-	CSPAlgorithm(Config& config, size_t pairCount);
-
-	void Init();
+	CSPAlgorithm(Config& config, size_t pairCount, size_t algorithmType);
 
 	bool CheckPairs();
-
-	void AddPairs();
 
 	void ProcessAlgorithm();
 
@@ -51,6 +56,7 @@ private:
 
 	size_t _pairCount;
 	size_t _removedPairs;
+	size_t _algorithmType;
 
 	string GeneratePair();
 

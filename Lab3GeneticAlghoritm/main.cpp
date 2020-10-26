@@ -1,6 +1,6 @@
 #include"InitializeAlghoritm.h"
 #include"Config.h"
-#include"GAlgorithm.h"
+#include"CSPAlgorithm.h"
 
 const char* File = "Input.txt";
 
@@ -10,11 +10,11 @@ int main() {
 	Config config;
 	config.ParseFile(File);
 
-	size_t crossoverProbability, mutationProbability, pairCount;
-	ShowStartingWindwow(crossoverProbability, mutationProbability, pairCount);
+	size_t algorithmType, pairCount;
+	ShowStartingWindwow(algorithmType, pairCount);
 
-	GAlgorithm algo(config, crossoverProbability, mutationProbability, pairCount);
-	algo.ProcessAlgorithm();
+	CSPAlgorithm algo(config, pairCount, algorithmType);
+	//algo.ProcessAlgorithm();
 
 	return 0;
 }
