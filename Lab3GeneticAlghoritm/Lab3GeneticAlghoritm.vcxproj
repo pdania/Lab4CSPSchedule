@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Course.cpp" />
+    <ClCompile Include="CSPAlghoritm.cpp" />
     <ClCompile Include="GAlgorithm.cpp" />
     <ClCompile Include="InitializeAlghoritm.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Config.h" />
     <ClInclude Include="Course.h" />
+    <ClInclude Include="CSPAlghoritm.h" />
     <ClInclude Include="GAlgorithm.h" />
     <ClInclude Include="InitializeAlghoritm.h" />
     <ClInclude Include="Professor.h" />
