@@ -24,6 +24,7 @@
     <ProjectGuid>{a5c120e9-fa38-49ee-84cd-f7e41b681457}</ProjectGuid>
     <RootNamespace>Lab3GeneticAlghoritm</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Lab4CSPSchedule</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
