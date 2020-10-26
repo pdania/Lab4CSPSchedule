@@ -10,12 +10,12 @@
 #include <iomanip>
 #include<iostream>
 
-class CSPAlghoritm {
+class CSPAlgorithm {
 public:
 
 public:
 
-	CSPAlghoritm(Config& config, size_t pairCount);
+	CSPAlgorithm(Config& config, size_t pairCount);
 
 	void Init();
 

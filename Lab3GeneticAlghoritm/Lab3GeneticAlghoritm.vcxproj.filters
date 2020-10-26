@@ -39,7 +39,7 @@
     <ClCompile Include="GAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CSPAlghoritm.cpp">
+    <ClCompile Include="CSPAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClInclude Include="GAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSPAlghoritm.h">
+    <ClInclude Include="CSPAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
