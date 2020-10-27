@@ -1,4 +1,5 @@
 #include"CSPAlgorithm.h"
+#include <chrono>
 
 using namespace std;
 
@@ -17,7 +18,8 @@ void CSPAlgorithm::Init() {
 	}
 }
 
-void CSPAlgorithm::ProcessAlgorithm1() {
+void CSPAlgorithm::DegreeHeuristic() {
+	std::chrono::steady_clock::time_point beg = std::chrono::steady_clock::now();
 	// Sort all pairs by frequency of professors and groups in descending order
 	sort(begin(_pairs), end(_pairs), [&](Pair& p1, Pair& p2) {
 		return
@@ -48,9 +50,14 @@ void CSPAlgorithm::ProcessAlgorithm1() {
 		// Add current pair to index
 		_index[x][y] = pair;
 	}
+
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	std::cout << "Time that algorithm takes " << std::chrono::duration_cast<std::chrono::microseconds>(end - beg).count() / 1000.0 << " milliseconds" << std::endl;
 }
 
-void CSPAlgorithm::ProcessAlgorithm2() {
+void CSPAlgorithm::LCVHeuristic() {
+
+	std::chrono::steady_clock::time_point beg = std::chrono::steady_clock::now();
 	// Sort all pairs by frequency of professors and groups in ascending order
 	sort(begin(_pairs), end(_pairs), [&](Pair& p1, Pair& p2) {
 		return
@@ -62,28 +69,33 @@ void CSPAlgorithm::ProcessAlgorithm2() {
 				_groups_frequency[p1.group->GetId()] < _groups_frequency[p2.group->GetId()]);
 		});
 
-	for (auto& pair : _pairs) {
+	// Set other elements
+	for (auto it = begin(_pairs); it != end(_pairs) - 2; ++it) {
 		int x = rand() % _index.size();
 		int y = rand() % _index[0].size();
 
 		// Check for valid 'place' in shedule for current pair
-		while (_used_professors[x].count(pair.professor->GetId()) > 0 ||
-			_used_groups[x].count(pair.group->GetId()) > 0 ||
-			(pair.isLection && _config.GetRoomById(y)->IsLab())) {
+		while (_used_professors[x].count(it->professor->GetId()) > 0 ||
+			_used_groups[x].count(it->group->GetId()) > 0 ||
+			(it->isLection && _config.GetRoomById(y)->IsLab())) {
 			x = rand() % _index.size();
 			y = rand() % _index[0].size();
 		}
 
 		// Mark that group and professor are used at this time.
-		_used_professors[x].insert(pair.professor->GetId());
-		_used_groups[x].insert(pair.group->GetId());
+		_used_professors[x].insert(it->professor->GetId());
+		_used_groups[x].insert(it->group->GetId());
 
 		// Add current pair to index
-		_index[x][y] = pair;
+		_index[x][y] = *it;
 	}
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	std::cout << "Time that algorithm takes " << std::chrono::duration_cast<std::chrono::microseconds>(end - beg).count()/ 1000.0 << " milliseconds" << std::endl;
 }
 
-void CSPAlgorithm::ProcessAlgorithm3() {
+void CSPAlgorithm::DegreeAndLCVHeuristic() {
+
+	std::chrono::steady_clock::time_point beg = std::chrono::steady_clock::now();
 	// Sort all pairs by frequency of professors and groups in ascending order
 	sort(begin(_pairs), end(_pairs), [&](Pair& p1, Pair& p2) {
 		return
@@ -123,6 +135,10 @@ void CSPAlgorithm::ProcessAlgorithm3() {
 		// Add current pair to index
 		_index[x][y] = *it;
 	}
+
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	std::cout << "Time that algorithm takes " << std::chrono::duration_cast<std::chrono::microseconds>(end - beg).count() / 1000.0 << " milliseconds" << std::endl;
+
 }
 
 

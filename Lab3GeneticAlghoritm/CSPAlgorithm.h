@@ -29,9 +29,9 @@ public:
 
 	void Init();
 
-	void ProcessAlgorithm1();
-	void ProcessAlgorithm2();
-	void ProcessAlgorithm3();
+	void DegreeHeuristic();
+	void LCVHeuristic();
+	void DegreeAndLCVHeuristic();
 
 	inline const IndexType& Index() const {
 		return _index;
