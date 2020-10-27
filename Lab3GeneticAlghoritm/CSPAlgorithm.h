@@ -29,7 +29,9 @@ public:
 
 	void Init();
 
-	void ProcessAlgorithm();
+	void ProcessAlgorithm1();
+	void ProcessAlgorithm2();
+	void ProcessAlgorithm3();
 
 	inline const IndexType& Index() const {
 		return _index;

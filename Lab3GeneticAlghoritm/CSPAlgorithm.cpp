@@ -17,8 +17,8 @@ void CSPAlgorithm::Init() {
 	}
 }
 
-void CSPAlgorithm::ProcessAlgorithm() {
-	// Sort all pairs by freeqquency of professors and groups
+void CSPAlgorithm::ProcessAlgorithm1() {
+	// Sort all pairs by frequency of professors and groups in descending order
 	sort(begin(_pairs), end(_pairs), [&](Pair& p1, Pair& p2) {
 		return
 			(_professors_frequency[p1.professor->GetId()] > _professors_frequency[p2.professor->GetId()] &&
@@ -47,6 +47,81 @@ void CSPAlgorithm::ProcessAlgorithm() {
 
 		// Add current pair to index
 		_index[x][y] = pair;
+	}
+}
+
+void CSPAlgorithm::ProcessAlgorithm2() {
+	// Sort all pairs by frequency of professors and groups in ascending order
+	sort(begin(_pairs), end(_pairs), [&](Pair& p1, Pair& p2) {
+		return
+			(_professors_frequency[p1.professor->GetId()] < _professors_frequency[p2.professor->GetId()] &&
+				_groups_frequency[p1.group->GetId()] < _groups_frequency[p2.group->GetId()]) ||
+			(_professors_frequency[p1.professor->GetId()] < _professors_frequency[p2.professor->GetId()] &&
+				_groups_frequency[p1.group->GetId()] == _groups_frequency[p2.group->GetId()]) ||
+			(_professors_frequency[p1.professor->GetId()] == _professors_frequency[p2.professor->GetId()] &&
+				_groups_frequency[p1.group->GetId()] < _groups_frequency[p2.group->GetId()]);
+		});
+
+	for (auto& pair : _pairs) {
+		int x = rand() % _index.size();
+		int y = rand() % _index[0].size();
+
+		// Check for valid 'place' in shedule for current pair
+		while (_used_professors[x].count(pair.professor->GetId()) > 0 ||
+			_used_groups[x].count(pair.group->GetId()) > 0 ||
+			(pair.isLection && _config.GetRoomById(y)->IsLab())) {
+			x = rand() % _index.size();
+			y = rand() % _index[0].size();
+		}
+
+		// Mark that group and professor are used at this time.
+		_used_professors[x].insert(pair.professor->GetId());
+		_used_groups[x].insert(pair.group->GetId());
+
+		// Add current pair to index
+		_index[x][y] = pair;
+	}
+}
+
+void CSPAlgorithm::ProcessAlgorithm3() {
+	// Sort all pairs by frequency of professors and groups in ascending order
+	sort(begin(_pairs), end(_pairs), [&](Pair& p1, Pair& p2) {
+		return
+			(_professors_frequency[p1.professor->GetId()] < _professors_frequency[p2.professor->GetId()] &&
+				_groups_frequency[p1.group->GetId()] < _groups_frequency[p2.group->GetId()]) ||
+			(_professors_frequency[p1.professor->GetId()] < _professors_frequency[p2.professor->GetId()] &&
+				_groups_frequency[p1.group->GetId()] == _groups_frequency[p2.group->GetId()]) ||
+			(_professors_frequency[p1.professor->GetId()] == _professors_frequency[p2.professor->GetId()] &&
+				_groups_frequency[p1.group->GetId()] < _groups_frequency[p2.group->GetId()]);
+		});
+
+	// Set first element
+	auto last_elem = rbegin(_pairs);
+	int x = rand() % _index.size();
+	int y = rand() % _index[0].size();
+	_used_professors[x].insert(last_elem->professor->GetId());
+	_used_groups[x].insert(last_elem->group->GetId());
+	_index[x][y] = *last_elem;
+
+	// Set other elements
+	for (auto it = begin(_pairs); it != end(_pairs) - 2; ++it) {
+		int x = rand() % _index.size();
+		int y = rand() % _index[0].size();
+
+		// Check for valid 'place' in shedule for current pair
+		while (_used_professors[x].count(it->professor->GetId()) > 0 ||
+			_used_groups[x].count(it->group->GetId()) > 0 ||
+			(it->isLection && _config.GetRoomById(y)->IsLab())) {
+			x = rand() % _index.size();
+			y = rand() % _index[0].size();
+		}
+
+		// Mark that group and professor are used at this time.
+		_used_professors[x].insert(it->professor->GetId());
+		_used_groups[x].insert(it->group->GetId());
+
+		// Add current pair to index
+		_index[x][y] = *it;
 	}
 }
 
