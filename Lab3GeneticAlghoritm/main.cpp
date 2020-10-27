@@ -14,8 +14,8 @@ int main() {
 
 	CSPAlgorithm algo(config, pairCount);
 	algo.Init();
-	algo.DegreeHeuristic();
-	algo.LCVHeuristic();
+	//algo.DegreeHeuristic();
+	//algo.LCVHeuristic();
 	algo.DegreeAndLCVHeuristic();
 
 	ShowShedule(algo);
