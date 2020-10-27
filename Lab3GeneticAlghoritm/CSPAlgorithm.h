@@ -41,6 +41,10 @@ public:
 		return _weekDays;
 	}
 
+	inline Config& getConfig() const {
+		return _config;
+	}
+
 private:
 	IndexType _index;
 	std::vector<Pair> _pairs;

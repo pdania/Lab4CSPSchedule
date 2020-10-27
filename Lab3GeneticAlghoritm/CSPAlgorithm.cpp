@@ -41,7 +41,7 @@ void CSPAlgorithm::ProcessAlgorithm() {
 			y = rand() % _index[0].size();
 		}
 
-		// Mark that group and proffesor are used at this time.
+		// Mark that group and professor are used at this time.
 		_used_professors[x].insert(pair.professor->GetId());
 		_used_groups[x].insert(pair.group->GetId());
 
