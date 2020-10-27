@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Config.h"
 #include "Course.h"
 #include "Room.h"
@@ -8,7 +9,8 @@
 #include <string>
 #include <map>
 #include <iomanip>
-#include<iostream>
+#include <iostream>
+#include <algorithm>
 
 struct Pair {
 	Professor* professor;
@@ -19,25 +21,31 @@ struct Pair {
 
 class CSPAlgorithm {
 public:
+	typedef std::vector<std::vector<Pair>> IndexType;
 
 public:
-
 	CSPAlgorithm(Config& config, size_t pairCount);
 
 	void Init();
 
-	bool CheckPairs();
-
 	void ProcessAlgorithm();
 
-	void PrintSchedule();
+	inline const IndexType& Index() const {
+		return _index;
+	}
+	inline const std::map<int, std::string>& PairTimes() const {
+		return _pairTimes;
+	}
+	inline const std::map<int, std::string>& WeekDays() const {
+		return _weekDays;
+	}
 
 private:
-	std::vector<std::vector<Pair>> _index;
+	IndexType _index;
 	std::vector<Pair> _pairs;
 	Config& _config;
 
-	map<int, std::string> pairTimes = {
+	std::map<int, std::string> _pairTimes = {
 		{1,"8:00-9:50"},
 		{2,"10:00-11:20"},
 		{3,"11:40-13:00"},
@@ -47,7 +55,7 @@ private:
 		{7,"18:00-19:20"}
 	};
 
-	map<int, std::string> weekDays = {
+	std::map<int, std::string> _weekDays = {
 		{1,"Monday"},
 		{2,"Tuesday"},
 		{3,"Wednesday"},

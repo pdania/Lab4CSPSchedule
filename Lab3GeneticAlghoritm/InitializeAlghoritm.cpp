@@ -34,6 +34,11 @@ void ShowStartingWindwow(size_t& pairCount) {
 	system("cls");
 }
 
+void ShowShedule(CSPAlgorithm& algorithm) {
+	cout << "Here is Shedule: " << endl;
+	// TODO pring Shedule
+}
+
 void SetCursorPosition(const int x, const int y, const Color color) {
 	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hOut, static_cast<int>(color));

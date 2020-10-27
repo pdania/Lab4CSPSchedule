@@ -14,7 +14,9 @@ int main() {
 
 	CSPAlgorithm algo(config, pairCount);
 	algo.Init();
-	//algo.ProcessAlgorithm();
+	algo.ProcessAlgorithm();
+
+	ShowShedule(algo);
 
 	return 0;
 }

@@ -8,13 +8,18 @@ CSPAlgorithm::CSPAlgorithm(Config& config, size_t pairCount) :
 }
 
 void CSPAlgorithm::Init() {
-	_index = vector<vector<Pair>>(weekDays.size() * pairTimes.size(), vector<Pair>(_config.GetNumberOfRooms()));
+	_index = vector<vector<Pair>>(_weekDays.size() * _pairTimes.size(), vector<Pair>(_config.GetNumberOfRooms()));
 
 	for (auto& pair : _pairs) {
 		pair = GeneratePair();
 	}
 }
 
+void CSPAlgorithm::ProcessAlgorithm() {
+	sort(begin(_pairs), end(_pairs), [](Pair& p1, Pair& p2) {
+		return p1.isLection < p2.isLection;
+		});
+}
 
 
 

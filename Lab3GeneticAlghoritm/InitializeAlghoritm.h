@@ -1,4 +1,6 @@
 #pragma once
+
+#include "CSPAlgorithm.h"
 #include <string>
 #include <iostream>
 #include <windows.h>
@@ -7,8 +9,6 @@
 #include <fstream>
 
 using namespace std;
-
-
 
 enum class Color {
 	Black = 0,
@@ -31,6 +31,7 @@ enum class Color {
 
 bool IsDigit(string str);
 void ShowStartingWindwow(size_t& crossoverProbability);
+void ShowShedule(CSPAlgorithm& algorithm);
 void SetCursorPosition(const int x, const int y, const Color color = Color::White);
 void ClearLine(const size_t y);
 
