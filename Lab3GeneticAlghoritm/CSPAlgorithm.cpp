@@ -70,24 +70,24 @@ void CSPAlgorithm::LCVHeuristic() {
 		});
 
 	// Set other elements
-	for (auto it = begin(_pairs); it != end(_pairs) - 2; ++it) {
+	for (auto& pair : _pairs) {
 		int x = rand() % _index.size();
 		int y = rand() % _index[0].size();
 
 		// Check for valid 'place' in shedule for current pair
-		while (_used_professors[x].count(it->professor->GetId()) > 0 ||
-			_used_groups[x].count(it->group->GetId()) > 0 ||
-			(it->isLection && _config.GetRoomById(y)->IsLab())) {
+		while (_used_professors[x].count(pair.professor->GetId()) > 0 ||
+			_used_groups[x].count(pair.group->GetId()) > 0 ||
+			(pair.isLection && _config.GetRoomById(y)->IsLab())) {
 			x = rand() % _index.size();
 			y = rand() % _index[0].size();
 		}
 
 		// Mark that group and professor are used at this time.
-		_used_professors[x].insert(it->professor->GetId());
-		_used_groups[x].insert(it->group->GetId());
+		_used_professors[x].insert(pair.professor->GetId());
+		_used_groups[x].insert(pair.group->GetId());
 
 		// Add current pair to index
-		_index[x][y] = *it;
+		_index[x][y] = pair;
 	}
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "Time that algorithm takes " << std::chrono::duration_cast<std::chrono::microseconds>(end - beg).count()/ 1000.0 << " milliseconds" << std::endl;
