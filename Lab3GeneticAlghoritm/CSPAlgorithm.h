@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <set>
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
@@ -43,6 +44,12 @@ public:
 private:
 	IndexType _index;
 	std::vector<Pair> _pairs;
+
+	std::map<int, int> _professors_frequency;
+	std::map<int, int> _groups_frequency;
+	std::vector<std::set<int>> _used_professors;
+	std::vector<std::set<int>> _used_groups;
+
 	Config& _config;
 
 	std::map<int, std::string> _pairTimes = {
