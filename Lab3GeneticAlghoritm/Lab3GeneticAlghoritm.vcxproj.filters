@@ -36,9 +36,6 @@
     <ClCompile Include="InitializeAlghoritm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GAlgorithm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CSPAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,9 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InitializeAlghoritm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CSPAlgorithm.h">

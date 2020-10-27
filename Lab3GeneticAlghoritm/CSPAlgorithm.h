@@ -10,6 +10,13 @@
 #include <iomanip>
 #include<iostream>
 
+struct Pair {
+	Professor* professor;
+	Course* course;
+	StudentsGroup* group;
+	bool isLection;
+};
+
 class CSPAlgorithm {
 public:
 
@@ -21,15 +28,14 @@ public:
 
 	bool CheckPairs();
 
-	void AddPairs();
-
 	void ProcessAlgorithm();
 
 	void PrintSchedule();
 
 private:
+	std::vector<std::vector<Pair>> _index;
+	std::vector<Pair> _pairs;
 	Config& _config;
-	std::vector<std::string> _population;
 
 	map<int, std::string> pairTimes = {
 		{1,"8:00-9:50"},
@@ -49,9 +55,5 @@ private:
 		{5,"Friday"}
 	};
 
-	size_t _pairCount;
-	size_t _removedPairs;
-
-	string GeneratePair();
-
+	Pair GeneratePair();
 };
